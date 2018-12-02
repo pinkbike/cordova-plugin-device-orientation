@@ -56,6 +56,10 @@ public class CompassListener extends CordovaPlugin implements SensorEventListene
     long lastAccessTime;                // time the value was last retrieved
     int accuracy;                       // accuracy of the sensor
 
+    private int mAzimuth = 0;
+    float[] orientation = new float[3];
+    float[] rMat = new float[9];
+
     private SensorManager sensorManager;// Sensor manager
     Sensor mSensor;                     // Compass sensor returned by sensor manager
 
@@ -164,8 +168,8 @@ public class CompassListener extends CordovaPlugin implements SensorEventListene
         }
 
         // Get compass sensor from sensor manager
-        @SuppressWarnings("deprecation")
-        List<Sensor> list = this.sensorManager.getSensorList(Sensor.TYPE_ORIENTATION);
+        //@SuppressWarnings("deprecation")
+        List<Sensor> list = this.sensorManager.getSensorList(Sensor.TYPE_ROTATION_VECTOR);
 
         // If found, then register as listener
         if (list != null && list.size() > 0) {
@@ -215,13 +219,17 @@ public class CompassListener extends CordovaPlugin implements SensorEventListene
      * @param SensorEvent event
      */
     public void onSensorChanged(SensorEvent event) {
-
         // We only care about the orientation as far as it refers to Magnetic North
         float heading = event.values[0];
 
+        // calculate th rotation matrix
+        SensorManager.getRotationMatrixFromVector(rMat, event.values);
+        // get the azimuth value (orientation[0]) in degree
+        mAzimuth = (int) (Math.toDegrees(SensorManager.getOrientation(rMat, orientation)[0]) + 360) % 360;
+
         // Save heading
         this.timeStamp = System.currentTimeMillis();
-        this.heading = heading;
+        this.heading = mAzimuth;
         this.setStatus(CompassListener.RUNNING);
 
         // If heading hasn't been read for TIMEOUT time, then turn off compass sensor to save power

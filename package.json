@@ -1,47 +1,26 @@
 {
   "name": "cordova-plugin-device-orientation",
   "version": "2.0.2-dev",
-  "description": "[DEPRECATED] Cordova Device Orientation Plugin",
+  "description": "Uses phone sensors to get compass heading.",
   "types": "./types/index.d.ts",
   "cordova": {
     "id": "cordova-plugin-device-orientation",
     "platforms": [
-      "firefoxos",
       "android",
-      "amazon-fireos",
-      "ubuntu",
-      "blackberry10",
-      "ios",
-      "wp7",
-      "wp8",
-      "windows8",
-      "tizen",
-      "browser"
+      "ios"
     ]
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/apache/cordova-plugin-device-orientation"
-  },
-  "bugs": {
-    "url": "https://issues.apache.org/jira/browse/CB"
+    "url": "https://github.com/pinkbike/cordova-plugin-device-orientation"
   },
   "keywords": [
     "cordova",
     "device",
     "orientation",
     "ecosystem:cordova",
-    "cordova-firefoxos",
     "cordova-android",
-    "cordova-amazon-fireos",
-    "cordova-ubuntu",
-    "cordova-blackberry10",
-    "cordova-ios",
-    "cordova-wp7",
-    "cordova-wp8",
-    "cordova-windows8",
-    "cordova-tizen",
-    "cordova-browser"
+    "cordova-ios"
   ],
   "scripts": {
     "test": "npm run jshint",
